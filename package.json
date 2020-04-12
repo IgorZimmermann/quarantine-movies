@@ -1,20 +1,21 @@
 {
-  "name": "quarantine-movies",
-  "version": "0.0.0",
-  "description": "A website hosted on our local network to keep track of our daily movies.",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "movies",
-    "quarantine",
-    "express",
-    "home"
-  ],
-  "author": "PaperKing01",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+	"name": "quarantine-movies",
+	"version": "0.0.0",
+	"description": "A website hosted on our local network to keep track of our daily movies.",
+	"main": "main.js",
+	"scripts": {
+		"start": "node main.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"movies",
+		"quarantine",
+		"express",
+		"home"
+	],
+	"author": "PaperKing01",
+	"license": "MIT",
+	"dependencies": {
+		"express": "^4.17.1"
+	}
 }
