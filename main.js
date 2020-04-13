@@ -79,7 +79,7 @@ app.post('/add/:m/:d/', async (req, res) => {
 		.eq(1)
 		.find('a')
 		.each((i, e) => {
-			if ($(e).text() == 'more credits') return;
+			if ($(e).text().includes('more credits')) return;
 			let d = {
 				name: $(e).text(),
 				imdb: 'https://imdb.com' + $(e).attr('href').split('?')[0],
