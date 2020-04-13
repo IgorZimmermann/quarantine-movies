@@ -14,7 +14,7 @@ app.use('/p/', express.static(__dirname + '/public/'));
 app.set('views', __dirname + '/views/');
 
 app.get('/', (req, res) => {
-	let s = require('./storage.json');
+	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
 	res.render('index', {
 		s: s,
 	});
@@ -28,7 +28,7 @@ app.get('/add/:m/:d/', (req, res) => {
 });
 
 app.get('/movie/:m/:d/', (req, res) => {
-	let s = require('./storage.json');
+	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
 	let data = s[req.params.m].days[req.params.d];
 	res.render('movie', {
 		d: data,
@@ -38,9 +38,11 @@ app.get('/movie/:m/:d/', (req, res) => {
 });
 
 app.post('/add/:m/:d/', async (req, res) => {
-	let s = require('./storage.json');
+	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
 	let title = req.body.title;
-	let uri = `https://imdb.com/find?q=${encodeURI(title)}%20${req.body.date}`;
+	let uri = `https://imdb.com/find?q=${encodeURI(title)}%20${
+		req.body.date
+	}&s=tt&ttype=ft`;
 	let body = await superagent.get(uri);
 	let $ = cheerio.load(body.text);
 	uri =
