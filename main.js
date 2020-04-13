@@ -14,7 +14,7 @@ app.use('/p/', express.static(__dirname + '/public/'));
 app.set('views', __dirname + '/views/');
 
 app.get('/', (req, res) => {
-	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
+	let s = require('./storage.json');
 	res.render('index', {
 		s: s,
 	});
@@ -28,20 +28,17 @@ app.get('/add/:m/:d/', (req, res) => {
 });
 
 app.get('/movie/:m/:d/', (req, res) => {
-	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
+	let s = require('./storage.json');
 	let data = s[req.params.m].days[req.params.d];
 	res.send(data);
 });
 
 app.post('/add/:m/:d/', async (req, res) => {
-	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
+	let s = require('./storage.json');
 	let title = req.body.title;
-	let target = s[req.params.m].days[req.params.d];
-	target.title = title;
+	s[req.params.m].days[req.params.d].title = title;
 	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
-	console.log('1');
 	res.redirect('/');
-	console.log('2');
 	let uri = `https://hu.wikipedia.com/wiki/${encodeURI(
 		title.replace(/ /g, '_')
 	)}`;
@@ -90,7 +87,7 @@ app.post('/add/:m/:d/', async (req, res) => {
 		.each((i, e) => {
 			let d = {
 				name: $(e).text(),
-				imdb: $(e).attr('href').split('?')[0],
+				imdb: 'https://imdb.com' + $(e).attr('href').split('?')[0],
 			};
 			data.directors.push(d);
 		});
@@ -100,7 +97,7 @@ app.post('/add/:m/:d/', async (req, res) => {
 		.each((i, e) => {
 			let d = {
 				name: $(e).text(),
-				imdb: $(e).attr('href').split('?')[0],
+				imdb: 'https://imdb.com' + $(e).attr('href').split('?')[0],
 			};
 			data.writers.push(d);
 		});
@@ -111,13 +108,12 @@ app.post('/add/:m/:d/', async (req, res) => {
 			if ($(e).text() == 'See full cast & crew') return;
 			let d = {
 				name: $(e).text(),
-				imdb: $(e).attr('href').split('?')[0],
+				imdb: 'https://imdb.com' + $(e).attr('href').split('?')[0],
 			};
 			data.stars.push(d);
 		});
-	target = data;
+	s[req.params.m].days[req.params.d] = data;
 	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
-	console.log('3');
 });
 
 app.listen(1919, () => {
