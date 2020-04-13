@@ -39,38 +39,9 @@ app.get('/movie/:m/:d/', (req, res) => {
 
 app.post('/add/:m/:d/', async (req, res) => {
 	let s = require('./storage.json');
-	let title = req.body.title;
-	s[req.params.m].days[req.params.d].title = title;
-	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
-	res.redirect('/');
-	let uri = `https://hu.wikipedia.com/wiki/${encodeURI(
-		title.replace(/ /g, '_')
-	)}`;
-	let body;
-	try {
-		body = await superagent.get(uri);
-	} catch (e) {
-		return console.log("Can't find movie on wikipedia");
-	}
+	let uri = `https://imdb.com/find?q=${encodeURI(title)}%20${req.body.date}`;
+	let body = await superagent.get(uri);
 	let $ = cheerio.load(body.text);
-	if ($('#firstHeading').text().includes('egyértelműsítő')) {
-		try {
-			body = await superagent.get(uri + '_(film)');
-		} catch (e) {
-			body = await superagent.get(`${uri}_(film, ${req.body.date})`);
-		}
-		$ = cheerio.load(body.text);
-	}
-	let srcTitle;
-	let small = $('.fejlec small');
-	if (small) {
-		srcTitle = small.text().replace('(', '').replace(')', '');
-	} else {
-		srcTitle = $('.fejlec').text();
-	}
-	uri = `https://imdb.com/find?q=${encodeURI(srcTitle)}`;
-	body = await superagent.get(uri);
-	$ = cheerio.load(body.text);
 	uri =
 		'https://imdb.com' +
 		$('.findResult:first-of-type .result_text a').attr('href');
@@ -88,6 +59,7 @@ app.post('/add/:m/:d/', async (req, res) => {
 			.replace(/(?:\n)/g, ''),
 		length: $('.subtext time').text().replace(/\s+/g, ''),
 		rating: $("span[itemprop='ratingValue']").text(),
+		color: req.body.color,
 	};
 	let creditArray = $('.credit_summary_item');
 	creditArray
@@ -123,6 +95,7 @@ app.post('/add/:m/:d/', async (req, res) => {
 		});
 	s[req.params.m].days[req.params.d] = data;
 	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
+	res.redirect('/');
 });
 
 app.listen(1919, () => {
