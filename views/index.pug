@@ -3,4 +3,16 @@ html(lang="en")
   head
     include includes/head.pug
   body
-    h1 Hello World
+    .wrapper
+      each m in Object.keys(s)
+        .month
+          h2.month-name #{s[m].display}
+            each f in Object.keys(s[m].days)
+              .movie
+                if s[m].days[f].title
+                  p.movie-date #{s[m].number}.#{f}
+                  a.movie-link(href="/movie/"+m+"/"+f+"/")
+                    h4.movie-title #{s[m].days[f].title}
+                else
+                  a.movie-add(href="/add/"+m+"/"+f+"/")
+                    h4.movie-add-title Add Movie

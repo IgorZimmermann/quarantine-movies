@@ -1,0 +1,10 @@
+doctype html
+html(lang="en")
+  head
+    include includes/head.pug
+  body
+    .wrapper
+      form.add-form(method="POST" action="/add/"+m+"/"+d+"/")
+        label.add-label(for="title") A film címe:
+        input.add-input#title(type="text", name="title" placeholder="Cím")
+        input.add-submit(type="submit", value="Hozzáadás")
