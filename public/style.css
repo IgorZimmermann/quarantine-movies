@@ -4,6 +4,10 @@
 	--blue: rgb(0, 183, 255);
 	--dark-yellow: rgb(200, 200, 0);
 	--yellow: rgb(255, 250, 0);
+	--pale-pink: rgb(255, 181, 241);
+	--pale-green: rgb(172, 251, 229);
+	--pale-purple: rgb(200, 187, 255);
+	--pale-yellow: rgb(253, 255, 144);
 }
 
 * {
@@ -23,6 +27,65 @@ body {
 	margin: 5px auto;
 	width: 375px;
 	max-height: fit-content;
+}
+
+.month-name {
+	font-size: 50px;
+	text-align: center;
+}
+
+.movie {
+	position: relative;
+	width: 100%;
+	border: 2px solid;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: row;
+}
+
+.movie.pink {
+	border-color: var(--pale-pink);
+}
+
+.movie.green {
+	border-color: var(--pale-green);
+}
+
+.movie.purple {
+	border-color: var(--pale-purple);
+}
+
+.movie.yellow {
+	border-color: var(--pale-yellow);
+}
+
+.movie.past {
+	border-color: rgb(40, 40, 40);
+}
+
+.movie-cover {
+	height: 100px;
+	border-radius: 10px 0 0 10px;
+}
+
+.movie-content {
+	padding: 0 10px;
+	width: 100%;
+}
+
+.movie-date {
+	clear: right;
+	float: right;
+}
+
+.movie-link {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 25px;
+	color: black;
+	text-decoration: none;
 }
 
 .top-box {
