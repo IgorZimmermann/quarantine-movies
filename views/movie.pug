@@ -3,4 +3,34 @@ html(lang="en")
   head
     include includes/head.pug
   body
-    p #{data}
+    .wrapper
+      .top-box
+        a(href="/")
+          i.fas.fa-long-arrow-alt-left.back-icon
+        p.movie-date #{month}.#{day}
+      .img-wrapper
+        a.trailer(href=d.trailer)
+          img(src=d.cover alt=d.title width="100%")
+      .movie-wrapper
+        .ratings
+          .rating-wrapper
+            i.fas.fa-star.star-icon
+            h2.movie-rating #{d.rating}
+            h3.movie-all-rating /10
+        h2.movie-title #{d.title}
+        .cast-wrapper
+          .cast-item
+            p.cast-title Directors:
+            .cast-content
+              each dir in d.directors
+                a(href=dir.imdb) #{dir.name}
+          .cast-item
+            p.cast-title Writers:
+            .cast-content
+              each wri in d.writers
+                a(href=wri.imdb) #{wri.name}
+          .cast-item
+            p.cast-title Stars:
+            .cast-content
+              each star in d.stars
+                a(href=star.imdb) #{star.name}

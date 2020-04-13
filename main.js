@@ -30,7 +30,11 @@ app.get('/add/:m/:d/', (req, res) => {
 app.get('/movie/:m/:d/', (req, res) => {
 	let s = require('./storage.json');
 	let data = s[req.params.m].days[req.params.d];
-	res.send(data);
+	res.render('movie', {
+		d: data,
+		month: s[req.params.m].number,
+		day: req.params.d,
+	});
 });
 
 app.post('/add/:m/:d/', async (req, res) => {
@@ -42,7 +46,12 @@ app.post('/add/:m/:d/', async (req, res) => {
 	let uri = `https://hu.wikipedia.com/wiki/${encodeURI(
 		title.replace(/ /g, '_')
 	)}`;
-	let body = await superagent.get(uri);
+	let body;
+	try {
+		body = await superagent.get(uri);
+	} catch (e) {
+		return console.log("Can't find movie on wikipedia");
+	}
 	let $ = cheerio.load(body.text);
 	if ($('#firstHeading').text().includes('egyértelműsítő')) {
 		try {
