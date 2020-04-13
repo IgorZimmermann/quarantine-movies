@@ -5,6 +5,6 @@ html(lang="en")
   body
     .wrapper
       form.add-form(method="POST" action="/add/"+m+"/"+d+"/")
-        label.add-label(for="title") A film címe:
         input.add-input#title(type="text", name="title" placeholder="Cím")
+        input.add-date#date(type="text", name="date" placeholder="Kiadás")
         input.add-submit(type="submit", value="Hozzáadás")

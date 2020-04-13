@@ -15,5 +15,6 @@ html(lang="en")
                   a.movie-link(href="/movie/"+m+"/"+f+"/")
                     h4.movie-title #{s[m].days[f].title}
                 else
+                  p.movie-date #{s[m].number}.#{f}
                   a.movie-add(href="/add/"+m+"/"+f+"/")
                     h4.movie-add-title Add Movie
