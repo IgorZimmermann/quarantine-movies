@@ -39,6 +39,7 @@ app.get('/movie/:m/:d/', (req, res) => {
 
 app.post('/add/:m/:d/', async (req, res) => {
 	let s = require('./storage.json');
+	let title = req.body.title;
 	let uri = `https://imdb.com/find?q=${encodeURI(title)}%20${req.body.date}`;
 	let body = await superagent.get(uri);
 	let $ = cheerio.load(body.text);
