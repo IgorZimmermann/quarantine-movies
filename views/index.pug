@@ -2,6 +2,7 @@ doctype html
 html(lang="en")
   head
     include includes/head.pug
+    script(defer src="/p/main.js")
   body
     .wrapper
       each m in Object.keys(s)
