@@ -8,8 +8,8 @@ s[process.argv[2]] = {
 	days: {},
 };
 
-for (var i = 0; i <= process.argv[5]; i++) {
-	s[process.argv[2]].days[i] = {};
+for (var i = 0; i < process.argv[5]; i++) {
+	s[process.argv[2]].days[i + 1] = {};
 }
 
 writeFileSync(path.dirname(__dirname) + '\\storage.json', JSON.stringify(s));
