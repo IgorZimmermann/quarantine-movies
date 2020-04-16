@@ -1,6 +1,8 @@
 const superagent = require('superagent');
 const cheerio = require('cheerio');
 
+const getHighResImage = require('./getHighResImage')
+
 module.exports = async (reqBody) => {
   let uri = `https://imdb.com/find?q=${encodeURI(reqBody.title)}%20${
     reqBody.date
@@ -20,7 +22,7 @@ module.exports = async (reqBody) => {
     writers: [],
     stars: [],
     trailer: 'https://imdb.com' + $("a[data-type='recommends']").attr('href'),
-    cover: $('.poster img').attr('src'),
+    cover: await getHighResImage(reqBody),
     released: $(".subtext a[title='See more release dates']")
       .text()
       .replace(/(?:\n)/g, '').split(" ")[2],
