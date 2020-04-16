@@ -47,6 +47,18 @@ app.post('/add/:m/:d/', async (req, res) => {
 	res.redirect('/');
 });
 
+app.get('/readd/:m/:d/', async (req, res) => {
+	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
+	let query = s[req.params.m].days[req.params.d]
+	let data = await getInfo({ title: query.title, date: query.released, color: query.color })
+	if (!data) {
+		return res.redirect('/')
+	}
+	s[req.params.m].days[req.params.d] = data;
+	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
+	res.redirect('/')
+})
+
 app.listen(1919, () => {
 	console.log('App listening on PORT 1919...');
 });
