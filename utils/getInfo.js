@@ -7,9 +7,11 @@ module.exports = async (reqBody) => {
     }&s=tt&ttype=ft`;
   let body = await superagent.get(uri);
   let $ = cheerio.load(body.text);
-  uri =
-    'https://imdb.com' +
-    $('.findResult:first-of-type .result_text a').attr('href');
+  let firstResult = $('.findResult:first-of-type .result_text a').attr('href')
+  if (!firstResult) {
+    return
+  }
+  uri = 'https://imdb.com' + firstResult;
   body = await superagent.get(uri);
   $ = cheerio.load(body.text);
   let data = {

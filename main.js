@@ -38,7 +38,11 @@ app.get('/movie/:m/:d/', (req, res) => {
 
 app.post('/add/:m/:d/', async (req, res) => {
 	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
-	s[req.params.m].days[req.params.d] = await getInfo(req.body);
+	let data = await getInfo(req.body)
+	if (!data) {
+		return res.redirect('/')
+	}
+	s[req.params.m].days[req.params.d] = data;
 	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
 	res.redirect('/');
 });
