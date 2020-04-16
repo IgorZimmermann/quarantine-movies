@@ -9,7 +9,7 @@ html(lang="en")
         .month
           h2.month-name #{s[m].display}
           each f in Object.keys(s[m].days)
-            div(class="movie "+s[m].days[f].color id=s[m].number+f)
+            div(class="movie "+s[m].days[f].color id="mov"+s[m].number+f)
               if s[m].days[f].title
                 img.movie-cover(src=s[m].days[f].cover, alt=s[m].days[f].title)
                 .movie-content
