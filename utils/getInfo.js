@@ -21,7 +21,7 @@ module.exports = async (reqBody) => {
     cover: $('.poster img').attr('src'),
     released: $(".subtext a[title='See more release dates']")
       .text()
-      .replace(/(?:\n)/g, ''),
+      .replace(/(?:\n)/g, '').split(" ")[2],
     length: $('.subtext time').text().replace(/\s+/g, ''),
     rating: $("span[itemprop='ratingValue']").text(),
     color: reqBody.color,
