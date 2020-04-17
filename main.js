@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 
-const getInfo = require('./utils/getInfo')
+const getInfo = require('./utils/getInfo');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,9 +38,9 @@ app.get('/movie/:m/:d/', (req, res) => {
 
 app.post('/add/:m/:d/', async (req, res) => {
 	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
-	let data = await getInfo(req.body)
+	let data = await getInfo(req.body);
 	if (!data) {
-		return res.redirect('/')
+		return res.redirect('/');
 	}
 	s[req.params.m].days[req.params.d] = data;
 	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
@@ -49,15 +49,19 @@ app.post('/add/:m/:d/', async (req, res) => {
 
 app.get('/readd/:m/:d/', async (req, res) => {
 	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
-	let query = s[req.params.m].days[req.params.d]
-	let data = await getInfo({ title: query.title, date: query.released, color: query.color })
+	let query = s[req.params.m].days[req.params.d];
+	let data = await getInfo({
+		title: query.title,
+		date: query.released,
+		color: query.color,
+	});
 	if (!data) {
-		return res.redirect('/')
+		return res.redirect('/');
 	}
 	s[req.params.m].days[req.params.d] = data;
 	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
-	res.redirect('/')
-})
+	res.redirect('/');
+});
 
 app.listen(1919, () => {
 	console.log('App listening on PORT 1919...');
