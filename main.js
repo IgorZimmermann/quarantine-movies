@@ -39,12 +39,14 @@ app.get('/movie/:m/:d/', (req, res) => {
 app.post('/add/:m/:d/', async (req, res) => {
 	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
 	let data = await getInfo(req.body);
-	if (!data) {
+	if (typeof data != 'object') {
+		console.log(data);
 		return res.redirect('/');
 	}
 	s[req.params.m].days[req.params.d] = data;
 	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
 	res.redirect('/');
+	console.log('Added: ', req.body.title);
 });
 
 app.get('/readd/:m/:d/', async (req, res) => {
@@ -55,12 +57,14 @@ app.get('/readd/:m/:d/', async (req, res) => {
 		date: query.released,
 		color: query.color,
 	});
-	if (!data) {
+	if (typeof data != 'object') {
+		console.log(data);
 		return res.redirect('/');
 	}
 	s[req.params.m].days[req.params.d] = data;
 	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
 	res.redirect('/');
+	console.log('Readded: ' + query.title);
 });
 
 app.listen(1919, () => {

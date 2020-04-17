@@ -12,7 +12,7 @@ module.exports = async (reqBody) => {
 	let $ = cheerio.load(body.text);
 	let firstResult = $('.findResult:first-of-type .result_text a').attr('href');
 	if (!firstResult) {
-		return;
+		return 'No result with URL: ' + uri;
 	}
 	uri = 'https://imdb.com' + firstResult;
 	body = await superagent.get(uri);
