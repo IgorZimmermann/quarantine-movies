@@ -31,6 +31,15 @@ app.get('/', (req, res) => {
 	});
 });
 
+app.get('/logs/', (req, res) => {
+	res.send(
+		`<p>${fs
+			.readFileSync(__dirname + '/logs.log')
+			.toString()
+			.replace(/\n/g, '<br>')}</p>`
+	);
+});
+
 app.get('/add/:m/:d/', (req, res) => {
 	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
 	res.render('add', {
