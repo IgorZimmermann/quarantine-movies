@@ -12,6 +12,9 @@ app.set('view engine', 'pug');
 app.use('/p/', express.static(__dirname + '/public/'));
 app.set('views', __dirname + '/views/');
 
+const config = require('./config.json');
+app.locals.config = config;
+
 app.get('/', (req, res) => {
 	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
 	res.render('index', {

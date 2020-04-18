@@ -13,8 +13,6 @@ html(lang="en")
         input.add-input#title(type="text", name="title" placeholder="Cím")
         input.add-input#date(type="text", name="date" placeholder="Kiadás")
         select.add-color#color(name="color")
-          option(value="pink") Szoni
-          option(value="green") Igor
-          option(value="purple") Artúr
-          option(value="yellow") Zsolt
+          each member in config.family.members
+            option(value=member.color) #{member.name}
         button.add-submit(type="submit") Hozzáadás
