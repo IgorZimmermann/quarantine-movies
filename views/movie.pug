@@ -3,34 +3,41 @@ html(lang="en")
   head
     include includes/head.pug
   body
+    div(class="top-box "+d.color)
+      a(href="/")
+        i.fas.fa-long-arrow-alt-left.back-icon
+      p.movie-date #{month}.#{day}
     .wrapper
-      .top-box
-        a(href="/")
-          i.fas.fa-long-arrow-alt-left.back-icon
-        p.movie-date #{month}.#{day}
       .img-wrapper
-        a.trailer(href=d.trailer)
-          img(src=d.cover alt=d.title width="100%")
+        a.trailer(target="_blank" href=d.trailer style="background-image: url("+d.cover+")")
       .movie-wrapper
-        .ratings
-          .rating-wrapper
-            i.fas.fa-star.star-icon
-            h2.movie-rating #{d.rating}
-            h3.movie-all-rating /10
         h2.movie-title #{d.title}
-        .cast-wrapper
-          .cast-item
-            p.cast-title Directors:
-            .cast-content
+        .info-wrapper
+          .info-item
+            p.info-title Értékelés:
+            .info-content
+              a #{d.rating}
+              span /10
+          .info-item
+            p.info-title Hossz:
+            .info-content
+              a #{d.length}
+          .info-item
+            p.info-title Kiadás:
+            .info-content
+              a #{d.released}
+          .info-item
+            p.info-title Rendezők:
+            .info-content
               each dir in d.directors
-                a(href=dir.imdb) #{dir.name}
-          .cast-item
-            p.cast-title Writers:
-            .cast-content
+                a(target="_blank" href=dir.imdb) #{dir.name}
+          .info-item
+            p.info-title Írók:
+            .info-content
               each wri in d.writers
-                a(href=wri.imdb) #{wri.name}
-          .cast-item
-            p.cast-title Stars:
-            .cast-content
+                a(target="_blank" href=wri.imdb) #{wri.name}
+          .info-item
+            p.info-title Sztárok:
+            .info-content
               each star in d.stars
-                a(href=star.imdb) #{star.name}
+                a(target="_blank" href=star.imdb) #{star.name}
