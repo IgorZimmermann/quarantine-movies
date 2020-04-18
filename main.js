@@ -92,7 +92,8 @@ app.get('/readd/:m/:d/', async (req, res) => {
 
 app.get('/delete/:m/:d/', (req, res) => {
 	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
-	let query = (s[req.params.m].days[req.params.d] = {});
+	let query = s[req.params.m].days[req.params.d];
+	s[req.params.m].days[req.params.d] = {};
 	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
 	res.redirect('/');
 	log('Deleted: ' + query.title);
