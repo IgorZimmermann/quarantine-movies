@@ -15,11 +15,12 @@ app.set('views', __dirname + '/views/');
 const config = require('./config.json');
 app.locals.config = config;
 
+function log(msg) {
+	fs.appendFileSync(__dirname + '/logs.log', `[${new Date()}] ~ ` + msg);
+}
+
 app.use((req, res, next) => {
-	fs.appendFileSync(
-		__dirname + '/logs.log',
-		`[${new Date()}] ~ ${req.method} ${req.url} from ${req.ip}\n`
-	);
+	log(`${req.method} ${req.url} from ${req.ip}\n`);
 	next();
 });
 
@@ -53,13 +54,13 @@ app.post('/add/:m/:d/', async (req, res) => {
 	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
 	let data = await getInfo(req.body);
 	if (typeof data != 'object') {
-		console.log(data);
+		log(data);
 		return res.redirect('/');
 	}
 	s[req.params.m].days[req.params.d] = data;
 	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
 	res.redirect('/');
-	console.log('Added: ', req.body.title);
+	log('Added: ' + req.body.title);
 });
 
 app.get('/readd/:m/:d/', async (req, res) => {
@@ -71,13 +72,13 @@ app.get('/readd/:m/:d/', async (req, res) => {
 		color: query.color,
 	});
 	if (typeof data != 'object') {
-		console.log(data);
+		log(data);
 		return res.redirect('/');
 	}
 	s[req.params.m].days[req.params.d] = data;
 	fs.writeFileSync(__dirname + '/storage.json', JSON.stringify(s));
 	res.redirect('/');
-	console.log('Readded: ' + query.title);
+	log('Readded: ' + query.title);
 });
 
 app.listen(1919, () => {
