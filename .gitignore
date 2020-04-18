@@ -5,6 +5,8 @@ storage.json
 
 test.*
 
+*.log
+
 config.json
 
 keys.json
