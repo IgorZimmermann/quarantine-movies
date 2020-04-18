@@ -15,6 +15,14 @@ app.set('views', __dirname + '/views/');
 const config = require('./config.json');
 app.locals.config = config;
 
+app.use((req, res, next) => {
+	fs.appendFileSync(
+		__dirname + '/logs.log',
+		`[${new Date()}] ~ ${req.method} ${req.url} from ${req.ip}\n`
+	);
+	next();
+});
+
 app.get('/', (req, res) => {
 	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
 	res.render('index', {
