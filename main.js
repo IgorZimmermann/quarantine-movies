@@ -20,8 +20,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/add/:m/:d/', (req, res) => {
+	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
 	res.render('add', {
-		m: req.params.m,
+		m: s[req.params.m].number,
 		d: req.params.d,
 	});
 });

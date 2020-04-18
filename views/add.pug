@@ -3,13 +3,18 @@ html(lang="en")
   head
     include includes/head.pug
   body
+    div(class="top-box "+d.color)
+      a(href="/")
+        i.fas.fa-long-arrow-alt-left.back-icon
+      p.movie-date #{m}.#{d}
     .wrapper
       form.add-form(method="POST" action="/add/"+m+"/"+d+"/")
+        h3.add-title Hozzáadás
         input.add-input#title(type="text", name="title" placeholder="Cím")
-        input.add-date#date(type="text", name="date" placeholder="Kiadás")
+        input.add-input#date(type="text", name="date" placeholder="Kiadás")
         select.add-color#color(name="color")
           option(value="pink") Szoni
           option(value="green") Igor
           option(value="purple") Artúr
           option(value="yellow") Zsolt
-        input.add-submit(type="submit", value="Hozzáadás")
+        button.add-submit(type="submit") Hozzáadás
