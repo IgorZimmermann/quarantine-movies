@@ -31,7 +31,7 @@ body {
 	flex-direction: row;
 }
 
-@media screen and (min-width: 375px) {
+@media screen and (max-width: 376px) {
 	.wrapper {
 		flex-direction: column;
 	}
@@ -144,7 +144,7 @@ body {
 	overflow: hidden;
 }
 
-@media screen and (min-width: 375px) {
+@media screen and (max-width: 376px) {
 	.img-wrapper a {
 		width: 100vw;
 		height: calc(100vh - 100px);
