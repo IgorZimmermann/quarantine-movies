@@ -11,7 +11,7 @@ html(lang="en")
           each f in Object.keys(s[m].days)
             div(class="movie "+s[m].days[f].color id="mov"+s[m].number+f)
               if s[m].days[f].title
-                img.movie-cover(src=s[m].days[f].cover, alt=s[m].days[f].title)
+                .movie-cover(style="background-image: url("+s[m].days[f].cover+")")
                 .movie-content
                   p.movie-date #{s[m].number}.#{f}
                   a.movie-link(href="/movie/"+m+"/"+f+"/")
