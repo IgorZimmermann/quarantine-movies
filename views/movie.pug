@@ -3,7 +3,7 @@ html(lang="en")
   head
     include includes/head.pug
   body
-    div(class="top-box "+d.color)
+    div(class="top-box")
       a(href="/")
         i.fas.fa-long-arrow-alt-left.back-icon
       p.movie-date #{month}.#{day}
@@ -11,7 +11,7 @@ html(lang="en")
       .img-wrapper
         a.trailer(target="_blank" href=d.trailer style="background-image: url("+d.cover+")")
       .movie-wrapper
-        h2.movie-title #{d.title}
+        h2.movie-title #{d.title} (#{d.color})
         .info-wrapper
           if d.hbo != null
             .info-item
