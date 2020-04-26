@@ -7,7 +7,6 @@ module.exports = async (reqBody) => {
   await page.goto('https://hbogo.hu/search/')
   await page.type('#search-input', reqBody.title)
   await page.waitFor(3000)
-  await page.screenshot({path: __dirname+'/image.png'})
   let movHREF = await page.evaluate(() => document.querySelectorAll('.search-item a')[0].getAttribute('href'))
   await browser.close()
   return `https://hbogo.hu${movHREF}`
