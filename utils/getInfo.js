@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 
 const getHighResImage = require('./getHighResImage');
 const getTrailer = require('./getTrailer');
+const HBO = require('./HBO')
 
 module.exports = async (reqBody) => {
 	let uri = `https://imdb.com/find?q=${encodeURI(reqBody.title)}%20${
@@ -32,6 +33,11 @@ module.exports = async (reqBody) => {
 		rating: $("span[itemprop='ratingValue']").text(),
 		color: reqBody.color,
 	};
+	try {
+		data.hbo = await HBO(reqBody)
+	} catch (e) {
+		data.hbo = null
+	}
 	let creditArray = $('.credit_summary_item');
 	creditArray
 		.eq(0)

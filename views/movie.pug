@@ -13,6 +13,11 @@ html(lang="en")
       .movie-wrapper
         h2.movie-title #{d.title}
         .info-wrapper
+          if d.hbo != null
+            .info-item
+              p.info-title Nézd:
+              .info-content
+                a(href=d.hbo) HBO
           .info-item
             p.info-title Értékelés:
             .info-content
