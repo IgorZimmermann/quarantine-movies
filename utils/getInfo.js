@@ -6,16 +6,21 @@ const getTrailer = require('./getTrailer');
 const HBO = require('./HBO')
 
 module.exports = async (reqBody) => {
-	let uri = `https://imdb.com/find?q=${encodeURI(reqBody.title)}%20${
-		reqBody.date
-	}&s=tt&ttype=ft`;
-	let body = await superagent.get(uri);
-	let $ = cheerio.load(body.text);
-	let firstResult = $('.findResult:first-of-type .result_text a').attr('href');
-	if (!firstResult) {
-		return 'No result with URL: ' + uri;
+	let uri
+	if (reqBody.url) {
+		uri = reqBody.url
+	} else {
+		uri = `https://imdb.com/find?q=${encodeURI(reqBody.title)}%20${
+			reqBody.date
+		}&s=tt&ttype=ft`;
+		let body = await superagent.get(uri);
+		let $ = cheerio.load(body.text);
+		let firstResult = $('.findResult:first-of-type .result_text a').attr('href');
+		if (!firstResult) {
+			return 'No result with URL: ' + uri;
+		}
+		uri = 'https://imdb.com' + firstResult;
 	}
-	uri = 'https://imdb.com' + firstResult;
 	body = await superagent.get(uri);
 	$ = cheerio.load(body.text);
 	let data = {
