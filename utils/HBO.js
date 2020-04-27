@@ -7,7 +7,13 @@ module.exports = async (reqBody) => {
   await page.goto('https://hbogo.hu/search/')
   await page.type('#search-input', reqBody.title)
   await page.waitFor(1000)
-  let movHREF = await page.evaluate(() => document.querySelectorAll('.search-item a')[0].getAttribute('href'))
+  let movHREF
+  try {
+    let relHREF = await page.evaluate(() => document.querySelectorAll('.search-item a')[0].getAttribute('href'))
+    movHREF = "https://hbogo.hu"+relHREF
+  } catch (e) {
+    movHREF = null
+  }
   browser.close()
-  return "https://hbogo.hu"+movHREF || null
+  return movHREF
 }
