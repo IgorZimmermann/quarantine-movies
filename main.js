@@ -59,6 +59,10 @@ app.get('/movie/:m/:d/', (req, res) => {
 	});
 });
 
+app.get('/movie/:m/:d/json/', (req, res) => {
+	res.json(require('./storage.json')[req.params.m].days[req.params.d])
+})
+
 app.post('/add/:m/:d/', async (req, res) => {
 	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
 	let data = await getInfo(req.body);
