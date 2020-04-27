@@ -29,15 +29,11 @@ module.exports = async (reqBody) => {
 			.text()
 			.replace(/(?:\n)/g, '')
 			.split(' ')[2],
+		hbo: await HBO(reqBody),
 		length: $('.subtext time').text().replace(/\s+/g, ''),
 		rating: $("span[itemprop='ratingValue']").text(),
 		color: reqBody.color,
 	};
-	try {
-		data.hbo = await HBO(reqBody)
-	} catch (e) {
-		data.hbo = null
-	}
 	let creditArray = $('.credit_summary_item');
 	creditArray
 		.eq(0)

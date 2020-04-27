@@ -8,15 +8,6 @@ module.exports = async (reqBody) => {
   await page.type('#search-input', reqBody.title)
   await page.waitFor(1000)
   let movHREF = await page.evaluate(() => document.querySelectorAll('.search-item a')[0].getAttribute('href'))
-  await page.goto("https://hbogo.hu"+movHREF)
-  await page.waitFor(1000)
-  let isValid = await page.evaluate((reqBody) => {
-    let metaArray = document.querySelectorAll('.meta')[0].textContent.split('|')
-    if (metaArray[0].replace(/[A-Z]| /g, '') == reqBody.date) {
-      return true
-    }
-  }, reqBody)
-  if (isValid) {
-    return movHREF
-  }
+  browser.close()
+  return "https://hbogo.hu"+movHREF || null
 }
