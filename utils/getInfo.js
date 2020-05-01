@@ -32,14 +32,8 @@ module.exports = async (reqBody) => {
 			directors: [],
 			writers: [],
 			stars: [],
-			music: [{
-				name: $2('.simpleTable.simpleCreditsTable').eq(3).find('td.name a').text(),
-				imdb: "https://imdb.com" + $2('.simpleTable.simpleCreditsTable').eq(3).find('td.name a').attr('href').split('?')[0]
-			}],
-			cinematography: [{
-				name: $2('.simpleTable.simpleCreditsTable').eq(4).find('td.name a').text(),
-				imdb: "https://imdb.com" + $2('.simpleTable.simpleCreditsTable').eq(4).find('td.name a').attr('href').split('?')[0]
-			}]
+			music: [],
+			cinematography: []
 		},
 		trailer: await getTrailer(reqBody),
 		cover: await getHighResImage(reqBody),
@@ -85,6 +79,27 @@ module.exports = async (reqBody) => {
 			};
 			data.cast.stars.push(d);
 		});
+	let castArray = $2('.simpleTable.simpleCreditsTable')
+	castArray
+		.eq(3)
+		.find('td.name')
+		.each((i, e) => {
+			let d = {
+				name: $(e).find('a').text(),
+				imdb: $(e).find('a').attr('href').split('?')[0]
+			}
+			data.cast.music.push(d)
+		})
+	castArray
+		.eq(4)
+		.find('td.name')
+		.each((i, e) => {
+			let d = {
+				name: $(e).find('a').text(),
+				imdb: $(e).find('a').attr('href').split('?')[0]
+			}
+			data.cast.cinematography.push(d)
+		})
 
 	return data;
 };
