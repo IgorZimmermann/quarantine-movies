@@ -33,7 +33,7 @@ html(lang="en")
               a #{d.released}
           each c in Object.keys(d.cast)
             .info-item
-              p.info-title #{translations[c]}:
+              p.info-title #{config.translations[c]}:
               .info-content
                 each cast in d.cast[c]
                   a(href=cast.imdb) #{cast.name}
