@@ -31,18 +31,9 @@ html(lang="en")
             p.info-title Kiadás:
             .info-content
               a #{d.released}
-          .info-item
-            p.info-title Rendezők:
-            .info-content
-              each dir in d.directors
-                a(target="_blank" href=dir.imdb) #{dir.name}
-          .info-item
-            p.info-title Írók:
-            .info-content
-              each wri in d.writers
-                a(target="_blank" href=wri.imdb) #{wri.name}
-          .info-item
-            p.info-title Sztárok:
-            .info-content
-              each star in d.stars
-                a(target="_blank" href=star.imdb) #{star.name}
+          each c in Object.keys(d.cast)
+            .info-item
+              p.info-title #{translations[c]}:
+              .info-content
+                each cast in d.cast[c]
+                  a(href=cast.imdb) ${cast.name}

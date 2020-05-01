@@ -23,11 +23,24 @@ module.exports = async (reqBody) => {
 	}
 	body = await superagent.get(uri);
 	$ = cheerio.load(body.text);
+	uri2 = uri.split('?')[0] + 'fullcredits'
+	body2 = await superagent.get(uri2)
+	$2 = cheerio.load(body2.text)
 	let data = {
 		title: reqBody.title,
-		directors: [],
-		writers: [],
-		stars: [],
+		cast: {
+			directors: [],
+			writers: [],
+			stars: [],
+			music: [{
+				name: $2('.simpleTable.simpleCreditsTable').eq(3).find('td.name a').text(),
+				imdb: "https://imdb.com" + $2('.simpleTable.simpleCreditsTable').eq(3).find('td.name a').attr('href').split('?')[0]
+			}],
+			cinematography: [{
+				name: $2('.simpleTable.simpleCreditsTable').eq(4).find('td.name a').text(),
+				imdb: "https://imdb.com" + $2('.simpleTable.simpleCreditsTable').eq(4).find('td.name a').attr('href').split('?')[0]
+			}]
+		},
 		trailer: await getTrailer(reqBody),
 		cover: await getHighResImage(reqBody),
 		released: $(".subtext a[title='See more release dates']")
@@ -48,7 +61,7 @@ module.exports = async (reqBody) => {
 				name: $(e).text(),
 				imdb: 'https://imdb.com' + $(e).attr('href').split('?')[0],
 			};
-			data.directors.push(d);
+			data.cast.directors.push(d);
 		});
 	creditArray
 		.eq(1)
@@ -59,7 +72,7 @@ module.exports = async (reqBody) => {
 				name: $(e).text(),
 				imdb: 'https://imdb.com' + $(e).attr('href').split('?')[0],
 			};
-			data.writers.push(d);
+			data.cast.writers.push(d);
 		});
 	creditArray
 		.eq(2)
@@ -70,7 +83,7 @@ module.exports = async (reqBody) => {
 				name: $(e).text(),
 				imdb: 'https://imdb.com' + $(e).attr('href').split('?')[0],
 			};
-			data.stars.push(d);
+			data.cast.stars.push(d);
 		});
 
 	return data;

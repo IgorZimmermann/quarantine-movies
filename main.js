@@ -14,6 +14,13 @@ app.set('views', __dirname + '/views/');
 
 const config = require('./config.json');
 app.locals.config = config;
+app.locals.translations = {
+	directors: "Rendező(k)",
+	writers: "Író(k)",
+	stars: "Főszereplő(k)",
+	music: "Zeneszerző",
+	cinematography: "Fényképezte"
+}
 
 function log(msg) {
 	fs.appendFileSync(__dirname + '/logs.log', `[${new Date()}] ~ ` + msg + '\n');
