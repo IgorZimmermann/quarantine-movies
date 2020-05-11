@@ -36,7 +36,7 @@ module.exports = async (reqBody) => {
 			cinematography: []
 		},
 		trailer: await getTrailer(reqBody),
-		cover: await getHighResImage(reqBody),
+		cover: 	getHighResImage($),
 		released: $(".subtext a[title='See more release dates']")
 			.text()
 			.replace(/(?:\n)/g, '')
