@@ -37,7 +37,7 @@ module.exports = async (reqBody) => {
 		},
 		trailer: await getTrailer(reqBody),
 		cover: 	getHighResImage($),
-		released: $('#titleDetails .txt-block:nth-child(6)').text().split(' (')[0].split(': ')[1].split(' ')[2],
+		released: $('#titleYear a').text(),
 		hbo: await HBO(reqBody),
 		length: $('.subtext time').text().replace(/\s+/g, ''),
 		rating: $("span[itemprop='ratingValue']").text(),
