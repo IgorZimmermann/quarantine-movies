@@ -53,6 +53,7 @@ app.get('/movie/:m/:d/', (req, res) => {
 	let s = JSON.parse(fs.readFileSync(__dirname + '/storage.json'));
 	let data = s[req.params.m].days[req.params.d];
 	res.render('movie', {
+		title: data.title,
 		d: data,
 		month: s[req.params.m].number,
 		day: req.params.d,
