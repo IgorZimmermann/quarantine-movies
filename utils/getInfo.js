@@ -48,6 +48,7 @@ module.exports = async (reqBody) => {
 		.eq(0)
 		.find('a')
 		.each((i, e) => {
+			if ($(e).text().includes('more credit')) return;
 			let d = {
 				name: $(e).text(),
 				imdb: 'https://imdb.com' + $(e).attr('href').split('?')[0],
