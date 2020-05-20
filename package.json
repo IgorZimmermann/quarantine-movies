@@ -1,6 +1,6 @@
 {
-	"name": "quarantine-movies",
-	"version": "0.0.0",
+	"name": "quarantino",
+	"version": "1.0.0",
 	"description": "A website hosted on our local network to keep track of our daily movies.",
 	"main": "main.js",
 	"scripts": {
